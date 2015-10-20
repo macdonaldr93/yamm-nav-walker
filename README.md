@@ -10,12 +10,12 @@ This is a utility class that is intended to format your WordPress theme menu wit
 
 ## Installation
 
-Place wp_bootstrap_navwalker.php in your WordPress theme folder /wp-content/your-theme/
+Place yamm-nav-walker.php in your WordPress theme folder /wp-content/your-theme/
 
 Open your WordPress themes functions.php file /wp-content/your-theme/functions.php and add the following code:
 ```php
 // Register Custom Navigation Walker
-require_once('wp_bootstrap_navwalker.php');
+require_once('yamm-nav-walker.php');
 ```
 
 ## Usage
@@ -23,19 +23,19 @@ require_once('wp_bootstrap_navwalker.php');
 Update your `wp_nav_menu()` function in `header.php` to use the new walker by adding a "walker" item to the wp_nav_menu array.
 
 ```php
- <?php
-            wp_nav_menu( array(
-                'menu'              => 'primary',
-                'theme_location'    => 'primary',
-                'depth'             => 4,
-                'container'         => 'div',
-                'container_class'   => 'collapse navbar-collapse',
-		        'container_id'      => 'bs-example-navbar-collapse-1',
-                'menu_class'        => 'nav navbar-nav yamm',
-                'fallback_cb'       => 'Yamm_Nav_Walker_menu_fallback',
-                'walker'            => new Yamm_Nav_Walker())
-            );
-        ?>
+<?php
+    wp_nav_menu( array(
+        'menu'              => 'primary',
+        'theme_location'    => 'primary',
+        'depth'             => 4,
+        'container'         => 'div',
+        'container_class'   => 'collapse navbar-collapse',
+        'container_id'      => 'bs-example-navbar-collapse-1',
+        'menu_class'        => 'nav navbar-nav yamm',
+        'fallback_cb'       => 'Yamm_Nav_Walker_menu_fallback',
+        'walker'            => new Yamm_Nav_Walker())
+    );
+?>
 ```
 
 Your menu will now be formatted with the correct syntax and classes to implement Bootstrap dropdown navigation. 
@@ -91,17 +91,17 @@ http://getbootstrap.com/components/#nav
 You can also use the full width walker like so:
 
 ```php
- <?php
-            wp_nav_menu( array(
-                'menu'              => 'primary',
-                'theme_location'    => 'primary',
-                'depth'             => 4,
-                'container'         => 'div',
-                'container_class'   => 'collapse navbar-collapse',
-		        'container_id'      => 'bs-example-navbar-collapse-1',
-                'menu_class'        => 'nav navbar-nav yamm',
-                'fallback_cb'       => 'Yamm_Fw_Nav_Walker_menu_fallback',
-                'walker'            => new Yamm_Fw_Nav_Walker())
-            );
-        ?>
+<?php
+    wp_nav_menu( array(
+        'menu'              => 'primary',
+        'theme_location'    => 'primary',
+        'depth'             => 4,
+        'container'         => 'div',
+        'container_class'   => 'collapse navbar-collapse',
+        'container_id'      => 'bs-example-navbar-collapse-1',
+        'menu_class'        => 'nav navbar-nav yamm',
+        'fallback_cb'       => 'Yamm_Fw_Nav_Walker_menu_fallback',
+        'walker'            => new Yamm_Fw_Nav_Walker())
+    );
+?>
 ```
