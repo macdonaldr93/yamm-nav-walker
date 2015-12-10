@@ -16,7 +16,7 @@ class Yamm_Nav_Walker extends Walker_Nav_Menu
         return preg_match('/(current[-_])|active|dropdown/', $classes);
     }
 
-    function start_lvl(&$output, $depth, $args = array())
+    function start_lvl(&$output, $depth = 0, $args = array())
     {
         $output .= ($depth == 0) ? "\n<ul class=\"dropdown-menu\">\n" . "\n<div class=\"yamm-content\">\n" . "\n<div class=\"row\">\n" : "\n<ul class=\"elementy-ul yamm-fw\">\n";
     }
@@ -138,7 +138,7 @@ class Yamm_Fw_Nav_Walker extends Walker_Nav_Menu
         return preg_match('/(current[-_])|active|dropdown/', $classes);
     }
 
-    function start_lvl(&$output, $depth, $args = array())
+    function start_lvl(&$output, $depth = 0, $args = array())
     {
         $output .= ($depth == 0) ? "\n<ul class=\"dropdown-menu\">\n" . "\n<div class=\"yamm-content\">\n" . "\n<div class=\"row\">\n" : "\n<ul class=\"elementy-ul yamm-fw\">\n";
     }
