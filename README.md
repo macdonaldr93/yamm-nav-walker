@@ -1,18 +1,20 @@
 # yamm-nav-walker
+
 A custom WordPress nav walker class to implement the Yamm 3 bootstrap mega menu navigation style in a custom theme using the WordPress built in menu manager.
 
-##NOTE
+## NOTE
 
 This is a utility class that is intended to format your WordPress theme menu with the correct syntax and classes to utilize the Bootstrap dropdown navigation, and does not include the required Bootstrap JS files or Yamm 3 files. You will have to include them manually.
 
-- http://getbootstrap.com/getting-started/#download
-- http://geedmo.github.io/yamm3/
+- <http://getbootstrap.com/getting-started/#download>
+- <http://geedmo.github.io/yamm3/>
 
 ## Installation
 
-Place yamm-nav-walker.php in your WordPress theme folder /wp-content/your-theme/
+Place `yamm-nav-walker.php` in your WordPress theme folder `/wp-content/your-theme/`
 
-Open your WordPress themes functions.php file /wp-content/your-theme/functions.php and add the following code:
+Open your WordPress themes `functions.php` file `/wp-content/your-theme/functions.php` and add the following code:
+
 ```php
 // Register Custom Navigation Walker
 require_once('yamm-nav-walker.php');
@@ -20,7 +22,7 @@ require_once('yamm-nav-walker.php');
 
 ## Usage
 
-Update your `wp_nav_menu()` function in `header.php` to use the new walker by adding a "walker" item to the wp_nav_menu array.
+Update your `wp_nav_menu()` function in `header.php` to use the new walker by adding a "walker" item to the `wp_nav_menu` array.
 
 ```php
 <?php
@@ -38,13 +40,13 @@ Update your `wp_nav_menu()` function in `header.php` to use the new walker by ad
 ?>
 ```
 
-Your menu will now be formatted with the correct syntax and classes to implement Bootstrap dropdown navigation. 
+Your menu will now be formatted with the correct syntax and classes to implement Bootstrap dropdown navigation.
 
 You will also want to declare your new menu in your `functions.php` file.
 
 ```php
 register_nav_menus( array(
-	'primary' => __( 'Primary Menu', 'THEMENAME' ),
+    'primary' => __( 'Primary Menu', 'THEMENAME' ),
 ) );
 ```
 
@@ -73,7 +75,7 @@ Typically the menu is wrapped with additional markup, here is an example of a `n
                 'depth'             => 2,
                 'container'         => 'div',
                 'container_class'   => 'collapse navbar-collapse',
-		        'container_id'      => 'bs-example-navbar-collapse-1',
+                'container_id'      => 'bs-example-navbar-collapse-1',
                 'menu_class'        => 'nav navbar-nav',
                 'fallback_cb'       => 'Yamm_Nav_Walker_menu_fallback',
                 'walker'            => new Yamm_Nav_Walker())
@@ -85,8 +87,7 @@ Typically the menu is wrapped with additional markup, here is an example of a `n
 
 To change your menu style add Bootstrap nav class names to the `menu_class` declaration.
 
-Review options in the Bootstrap docs for more information on nav classes
-http://getbootstrap.com/components/#nav
+Review options in the Bootstrap docs for more information on nav classes <http://getbootstrap.com/components/#nav>
 
 You can also use the full width walker like so:
 
