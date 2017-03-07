@@ -3,7 +3,7 @@
  * Class Name: Yamm_Nav_Walker & Yamm_Fw_Nav_Walker
  * GitHub URI: https://github.com/macdonaldr93/yamm-nav-walker
  * Description: A custom WordPress nav walker class to implement the Yamm 3 bootstrap mega menu navigation style in a custom theme using the WordPress built in menu manager.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Ryan Macdonald - @macdonaldr93
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -11,34 +11,28 @@
 
 class Yamm_Nav_Walker extends Walker_Nav_Menu
 {
-    function check_current($classes)
+    public function check_current($classes)
     {
         return preg_match('/(current[-_])|active|dropdown/', $classes);
     }
 
-    function start_lvl(&$output, $depth = 0, $args = array())
+    public function start_lvl(&$output, $depth = 0, $args = array())
     {
         $output .= ($depth == 0) ? "\n<ul class=\"dropdown-menu\">\n" . "\n<div class=\"yamm-content\">\n" . "\n<div class=\"row\">\n" : "\n<ul class=\"elementy-ul yamm-fw\">\n";
     }
 
 
-    function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0)
+    public function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0)
     {
         $item_html = '';
         parent::start_el($item_html, $item, $depth, $args);
 
-        if ($item->is_dropdown && ($depth === 0))
-        {
+        if ($item->is_dropdown && ($depth === 0)) {
             $item_html = str_replace('<a', '<a class="dropdown-toggle" data-toggle="dropdown" data-target="#"', $item_html);
             $item_html = str_replace('</a>', ' <b class="caret"></b></a>', $item_html);
-        }
-
-        elseif (stristr($item_html, 'li class="divider'))
-        {
+        } elseif (stristr($item_html, 'li class="divider')) {
             $item_html = preg_replace('/<a[^>]*>.*?<\/a>/iU', '', $item_html);
-        }
-        elseif (stristr($item_html, 'li class="dropdown-header'))
-        {
+        } elseif (stristr($item_html, 'li class="dropdown-header')) {
             $item_html = preg_replace('/<a[^>]*>(.*)<\/a>/iU', '$1', $item_html);
         }
 
@@ -47,24 +41,23 @@ class Yamm_Nav_Walker extends Walker_Nav_Menu
     }
 
 
-    function display_element($element, &$children_elements, $max_depth, $depth = 0, $args, &$output)
+    public function display_element($element, &$children_elements, $max_depth, $depth = 0, $args, &$output)
     {
-
         $element->is_dropdown = ((!empty($children_elements[$element->ID]) && (($depth + 1) < $max_depth || ($max_depth === 0))));
-        if ($element->is_dropdown)
-        {
+        if ($element->is_dropdown) {
             $element->classes[] = 'dropdown';
-
-
         }
-        if ($element && ($depth === 1))
-        {
+        if ($element && ($depth === 1)) {
             $element->classes[] = 'col-sm-4 menu-col';
         }
 
         parent::display_element($element, $children_elements, $max_depth, $depth, $args, $output);
     }
 
+    public function end_lvl(&$output, $depth = 0, $args = array())
+    {
+        $output .= ($depth == 0) ? "\n</div>\n" . "\n</div>\n" . "\n</ul>\n" : "\n</ul>\n";
+    }
 }
 
 /**
@@ -96,18 +89,15 @@ function yamm_roots_nav_menu_args($args = '')
 {
     $yamm_roots_nav_menu_args['container'] = false;
 
-    if (!$args['items_wrap'])
-    {
+    if (!$args['items_wrap']) {
         $yamm_roots_nav_menu_args['items_wrap'] = '<ul class="%2$s">%3$s</ul>';
     }
 
-    if (current_theme_supports('bootstrap-top-navbar') && !$args['depth'])
-    {
+    if (current_theme_supports('bootstrap-top-navbar') && !$args['depth']) {
         $yamm_roots_nav_menu_args['depth'] = 3;
     }
 
-    if (!$args['walker'])
-    {
+    if (!$args['walker']) {
         $yamm_roots_nav_menu_args['walker'] = new Yamm_Nav_Walker();
     }
 
@@ -122,8 +112,7 @@ function Yamm_Nav_Walker_menu_fallback()
 {
     $fb_output = '<ul class="nav navbar-nav">';
     $fb_output .= '<li><a href="' . esc_url(home_url()) . '">' . __('Home', THEMETD) . '</a></li>';
-    if (current_user_can('manage_options'))
-    {
+    if (current_user_can('manage_options')) {
         $fb_output .= '<li><a href="' . admin_url('nav-menus.php') . '">' . __('Add a menu', THEMETD) . '</a></li>';
     }
     $fb_output .= '</ul>';
@@ -133,34 +122,28 @@ function Yamm_Nav_Walker_menu_fallback()
 
 class Yamm_Fw_Nav_Walker extends Walker_Nav_Menu
 {
-    function check_current($classes)
+    public function check_current($classes)
     {
         return preg_match('/(current[-_])|active|dropdown/', $classes);
     }
 
-    function start_lvl(&$output, $depth = 0, $args = array())
+    public function start_lvl(&$output, $depth = 0, $args = array())
     {
         $output .= ($depth == 0) ? "\n<ul class=\"dropdown-menu\">\n" . "\n<div class=\"yamm-content\">\n" . "\n<div class=\"row\">\n" : "\n<ul class=\"elementy-ul yamm-fw\">\n";
     }
 
 
-    function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0)
+    public function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0)
     {
         $item_html = '';
         parent::start_el($item_html, $item, $depth, $args);
 
-        if ($item->is_dropdown && ($depth === 0))
-        {
+        if ($item->is_dropdown && ($depth === 0)) {
             $item_html = str_replace('<a', '<a class="dropdown-toggle" data-toggle="dropdown" data-target="#"', $item_html);
             $item_html = str_replace('</a>', ' <b class="caret"></b></a>', $item_html);
-        }
-
-        elseif (stristr($item_html, 'li class="divider'))
-        {
+        } elseif (stristr($item_html, 'li class="divider')) {
             $item_html = preg_replace('/<a[^>]*>.*?<\/a>/iU', '', $item_html);
-        }
-        elseif (stristr($item_html, 'li class="dropdown-header'))
-        {
+        } elseif (stristr($item_html, 'li class="dropdown-header')) {
             $item_html = preg_replace('/<a[^>]*>(.*)<\/a>/iU', '$1', $item_html);
         }
 
@@ -169,24 +152,23 @@ class Yamm_Fw_Nav_Walker extends Walker_Nav_Menu
     }
 
 
-    function display_element($element, &$children_elements, $max_depth, $depth = 0, $args, &$output)
+    public function display_element($element, &$children_elements, $max_depth, $depth = 0, $args, &$output)
     {
-
         $element->is_dropdown = ((!empty($children_elements[$element->ID]) && (($depth + 1) < $max_depth || ($max_depth === 0))));
-        if ($element->is_dropdown)
-        {
+        if ($element->is_dropdown) {
             $element->classes[] = 'dropdown yamm-fw';
-
-
         }
-        if ($element && ($depth === 1))
-        {
+        if ($element && ($depth === 1)) {
             $element->classes[] = 'col-sm-4 menu-col';
         }
 
         parent::display_element($element, $children_elements, $max_depth, $depth, $args, $output);
     }
 
+    public function end_lvl(&$output, $depth = 0, $args = array())
+    {
+        $output .= ($depth == 0) ? "\n</div>\n" . "\n</div>\n" . "\n</ul>\n" : "\n</ul>\n";
+    }
 }
 
 /**
@@ -218,18 +200,15 @@ function yamm_fw_roots_nav_menu_args($args = '')
 {
     $yamm_fw_roots_nav_menu_args['container'] = false;
 
-    if (!$args['items_wrap'])
-    {
+    if (!$args['items_wrap']) {
         $yamm_fw_roots_nav_menu_args['items_wrap'] = '<ul class="%2$s">%3$s</ul>';
     }
 
-    if (current_theme_supports('bootstrap-top-navbar') && !$args['depth'])
-    {
+    if (current_theme_supports('bootstrap-top-navbar') && !$args['depth']) {
         $yamm_fw_roots_nav_menu_args['depth'] = 3;
     }
 
-    if (!$args['walker'])
-    {
+    if (!$args['walker']) {
         $yamm_fw_roots_nav_menu_args['walker'] = new Yamm_Fw_Nav_Walker();
     }
 
@@ -244,13 +223,10 @@ function Yamm_Fw_Nav_Walker_menu_fallback()
 {
     $fb_output = '<ul class="nav navbar-nav">';
     $fb_output .= '<li><a href="' . esc_url(home_url()) . '">' . __('Home', THEMETD) . '</a></li>';
-    if (current_user_can('manage_options'))
-    {
+    if (current_user_can('manage_options')) {
         $fb_output .= '<li><a href="' . admin_url('nav-menus.php') . '">' . __('Add a menu', THEMETD) . '</a></li>';
     }
     $fb_output .= '</ul>';
 
     echo $fb_output;
 }
-
-?>
