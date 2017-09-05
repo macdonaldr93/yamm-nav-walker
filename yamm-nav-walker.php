@@ -28,7 +28,7 @@ class Yamm_Nav_Walker extends Walker_Nav_Menu
         parent::start_el($item_html, $item, $depth, $args);
 
         if ($item->is_dropdown && ($depth === 0)) {
-            $item_html = str_replace('<a', '<a class="dropdown-toggle" data-toggle="dropdown" data-target="#"', $item_html);
+            $item_html = str_replace('<a', '<a class="dropdown-toggle" data-toggle="dropdown"', $item_html);
             $item_html = str_replace('</a>', ' <b class="caret"></b></a>', $item_html);
         } elseif (stristr($item_html, 'li class="divider')) {
             $item_html = preg_replace('/<a[^>]*>.*?<\/a>/iU', '', $item_html);
