@@ -67,7 +67,8 @@ class Yamm_Nav_Walker extends Walker_Nav_Menu
 function yamm_roots_nav_menu_css_class($classes, $item)
 {
     $slug    = sanitize_title($item->title);
-    $classes = preg_replace('/(current(-menu-|[-_]page[-_])(item|parent|ancestor))/', 'active', $classes);
+    $classes = preg_replace('/(current(-menu-|[-_]page[-_])(item|parent|ancestor))/', 'active-${3}', $classes);
+    $classes = preg_replace('/(active-item)/', 'active', $classes);
     $classes = preg_replace('/^((menu|page)[-_\w+]+)+/', '', $classes);
 
     $classes[] = 'menu-' . $slug;
@@ -178,7 +179,8 @@ class Yamm_Fw_Nav_Walker extends Walker_Nav_Menu
 function yamm_fw_roots_nav_menu_css_class($classes, $item)
 {
     $slug    = sanitize_title($item->title);
-    $classes = preg_replace('/(current(-menu-|[-_]page[-_])(item|parent|ancestor))/', 'active', $classes);
+    $classes = preg_replace('/(current(-menu-|[-_]page[-_])(item|parent|ancestor))/', 'active-${3}', $classes);
+    $classes = preg_replace('/(active-item)/', 'active', $classes);
     $classes = preg_replace('/^((menu|page)[-_\w+]+)+/', '', $classes);
 
     $classes[] = 'menu-' . $slug;
